@@ -8,6 +8,7 @@ import org.nd4j.linalg.factory.ops.NDBase;
 import org.nd4j.linalg.ops.transforms.Transforms;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -162,6 +163,8 @@ class Nd4j2Test {
     String modelSize = "124M";
     String modelsDir = "models";
     assumeTrue("UTF-8".equals(System.getProperty("file.encoding")));
+    assumeTrue(Files.exists(Paths.get(modelsDir, modelSize, "params.bson")),
+        "models/124M is missing, see README section 'Download GPT2 model'");
     Params params = Params.getParams(Paths.get(modelsDir, modelSize));
     Encoder encoder = Encoder.getEncoder(modelSize, modelsDir);
 

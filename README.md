@@ -15,12 +15,40 @@ This project is derived from [PicoGPT](https://github.com/jaymody/picoGPT) by [J
 
 This project is licensed under the MIT License. See the [LICENSE](./LICENSE) file for more details.
 
+## Requirements
+
+- JDK 17 or newer
+- Maven (or use the included wrapper: `mvnw` / `mvnw.cmd`)
+- Docker, only to download the model
+
 ## Download GPT2 model
+
+Build the image once:
 
 ```
 docker build -t download_model .
-docker run -v %userprofile%\IdeaProjects\RD_Archive\ams\gpt2-in-about-150-lines-of-nd4j\models:/app/models download_model
 ```
+
+Then run it from the project root, with the command for your shell. The files are written to `models/124M`.
+
+Windows `cmd`:
+
+```
+docker run --rm -v "%cd%\models:/app/models" download_model
+```
+
+Windows PowerShell:
+
+```
+docker run --rm -v "${PWD}\models:/app/models" download_model
+```
+
+Linux/macOS:
+
+```
+docker run --rm -v "$(pwd)/models:/app/models" download_model
+```
+
 ## Run
 
 In (IntelliJ IDEA) *Run > Edit Configurations*:
@@ -35,13 +63,15 @@ Or from the command line with Maven:
 mvn compile exec:java -Dexec.args="-p 'Not all heroes wear capes.' -n 40 -d models"
 ```
 
+The program requires `file.encoding=UTF-8`. JDK 18+ uses it by default; on older JDKs set `MAVEN_OPTS=-Dfile.encoding=UTF-8` first.
+
 ## Tests
 
 ```
 mvn test
 ```
 
-The tests (`EncoderTest`, `ParamsTest`, `Nd4j2Test`) read the model from `models/124M`, so they fail with `FileNotFoundException` until the model has been downloaded (see *Download GPT2 model* above).
+The tests (`EncoderTest`, `ParamsTest`, `Nd4j2Test.similarity`) read the model from `models/124M`. Until the model has been downloaded (see *Download GPT2 model* above) they are skipped with a message.
 
 ## Recommended Readings
 

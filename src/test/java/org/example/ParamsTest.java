@@ -5,11 +5,13 @@ import org.junit.jupiter.api.Test;
 import org.nd4j.linalg.api.ndarray.INDArray;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.arrayWithSize;
 import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 /**
  * Unit tests {@link Params} for 124M model size.
@@ -20,6 +22,8 @@ class ParamsTest {
 
   @BeforeAll
   static void initAll() throws IOException {
+    assumeTrue(Files.exists(Paths.get("models", "124M", "params.bson")),
+        "models/124M is missing, see README section 'Download GPT2 model'");
     params = Params.getParams(Paths.get("models", "124M"));
   }
 

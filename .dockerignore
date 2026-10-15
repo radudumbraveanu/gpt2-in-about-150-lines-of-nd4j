@@ -1,0 +1,4 @@
+# Send only what the Dockerfile copies (keeps models/ and target/ out of the build context)
+*
+!requirements.txt
+!download_model.py

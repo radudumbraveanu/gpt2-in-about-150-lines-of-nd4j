@@ -4,6 +4,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 
@@ -24,6 +26,8 @@ class EncoderTest {
   @BeforeEach
   void init() throws IOException {
     assumeTrue("UTF-8".equals(System.getProperty("file.encoding")));
+    assumeTrue(Files.exists(Paths.get("models", "124M", "encoder.json")),
+        "models/124M is missing, see README section 'Download GPT2 model'");
 
     String modelSize = "124M";
     String modelsDir = "models";
