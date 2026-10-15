@@ -4,6 +4,10 @@ Original work:
 
 Copyright (c) 2023 Jay Mody
 
+Portions (download_model.py), from openai/gpt-2 (Modified MIT License):
+
+Copyright (c) 2019 OpenAI
+
 Derived work:
 
 Copyright (c) 2024 Radu Dumbrăveanu

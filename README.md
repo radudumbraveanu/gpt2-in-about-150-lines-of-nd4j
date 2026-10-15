@@ -17,8 +17,6 @@ This project is licensed under the MIT License. See the [LICENSE](./LICENSE) fil
 
 ## Download GPT2 model
 
-(Disconnect from VPN)
-
 ```
 docker build -t download_model .
 docker run -v %userprofile%\IdeaProjects\RD_Archive\ams\gpt2-in-about-150-lines-of-nd4j\models:/app/models download_model
@@ -29,7 +27,21 @@ In (IntelliJ IDEA) *Run > Edit Configurations*:
 
 1. VM options: `"-Dfile.encoding=UTF-8"`
 2. Main class: `org.example.Gpt2`
-3. Program argument: `-p "Not all heroes wear capes." -n 40 -d "ams\gpt2-in-about-150-lines-of-nd4j\models"`
+3. Program argument: `-p "Not all heroes wear capes." -n 40 -d "models"`
+
+Or from the command line with Maven:
+
+```
+mvn compile exec:java -Dexec.args="-p 'Not all heroes wear capes.' -n 40 -d models"
+```
+
+## Tests
+
+```
+mvn test
+```
+
+The tests (`EncoderTest`, `ParamsTest`, `Nd4j2Test`) read the model from `models/124M`, so they fail with `FileNotFoundException` until the model has been downloaded (see *Download GPT2 model* above).
 
 ## Recommended Readings
 
